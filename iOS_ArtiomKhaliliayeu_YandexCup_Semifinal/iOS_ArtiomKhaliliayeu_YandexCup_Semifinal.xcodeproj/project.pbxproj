@@ -22,6 +22,7 @@
 		F87F623C2AF437B7000962A1 /* SampleViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F623B2AF437B7000962A1 /* SampleViewCellModel.swift */; };
 		F87F623E2AF440E6000962A1 /* AudioPlayerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F623D2AF440E6000962A1 /* AudioPlayerControllerDelegate.swift */; };
 		F87F62402AF4417E000962A1 /* SoundMakerContainer+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F623F2AF4417E000962A1 /* SoundMakerContainer+Delegates.swift */; };
+		F87F62422AF45A9C000962A1 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87F62412AF45A9C000962A1 /* UIView+.swift */; };
 		F8A3AA492AF006FD003AE552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA482AF006FD003AE552 /* AppDelegate.swift */; };
 		F8A3AA4B2AF006FD003AE552 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */; };
 		F8A3AA4D2AF006FD003AE552 /* SoundMakerContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4C2AF006FD003AE552 /* SoundMakerContainerController.swift */; };
@@ -67,6 +68,7 @@
 		F87F623B2AF437B7000962A1 /* SampleViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewCellModel.swift; sourceTree = "<group>"; };
 		F87F623D2AF440E6000962A1 /* AudioPlayerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerControllerDelegate.swift; sourceTree = "<group>"; };
 		F87F623F2AF4417E000962A1 /* SoundMakerContainer+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoundMakerContainer+Delegates.swift"; sourceTree = "<group>"; };
+		F87F62412AF45A9C000962A1 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		F8A3AA452AF006FD003AE552 /* iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A3AA482AF006FD003AE552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				F8A3AA862AF1B12D003AE552 /* StackView+.swift */,
+				F87F62412AF45A9C000962A1 /* UIView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				F8A3AA4B2AF006FD003AE552 /* SceneDelegate.swift in Sources */,
 				F8A3AA822AF1A31B003AE552 /* Colors.swift in Sources */,
 				F87F623C2AF437B7000962A1 /* SampleViewCellModel.swift in Sources */,
+				F87F62422AF45A9C000962A1 /* UIView+.swift in Sources */,
 				F8A3AA892AF28A8C003AE552 /* RoundedIconButton.swift in Sources */,
 				F87F623E2AF440E6000962A1 /* AudioPlayerControllerDelegate.swift in Sources */,
 				F8A3AA8B2AF2A409003AE552 /* SpeedControlView.swift in Sources */,

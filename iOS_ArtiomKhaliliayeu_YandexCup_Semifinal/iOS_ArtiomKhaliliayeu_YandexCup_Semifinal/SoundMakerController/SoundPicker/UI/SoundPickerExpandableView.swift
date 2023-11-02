@@ -99,7 +99,7 @@ class SoundPickerExpandableView: UIView {
         self.samples = samples
         //MARK: - Image setup
         imageView.image = type.icon
-        NSLayoutConstraint.deactivate(imageView.constraints)
+        imageView.removeAllConstraints()
         var imageConstraints = [
             imageView.widthAnchor.constraint(equalToConstant: type.iconSize.width),
             imageView.heightAnchor.constraint(equalToConstant: type.iconSize.height),
