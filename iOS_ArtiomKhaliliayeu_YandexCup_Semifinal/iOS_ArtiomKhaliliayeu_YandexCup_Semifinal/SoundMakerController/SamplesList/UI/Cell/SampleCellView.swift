@@ -11,6 +11,10 @@ class SampleCellView: UICollectionViewCell {
 
     static let identifier = "SampleCellView"
 
+    var closeButtonAction: (() -> Void)?
+    var playButtonAction: (() -> Void)?
+    var soundButtonAction: (() -> Void)?
+
     private let backgroundContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -84,9 +88,27 @@ class SampleCellView: UICollectionViewCell {
             playButton.bottomAnchor.constraint(equalTo: backgroundContentView.bottomAnchor),
             playButton.widthAnchor.constraint(equalToConstant: 29),
         ])
+        deleteButton.addTarget(self, action: #selector(didTapCloseButton), for: .primaryActionTriggered)
+        playButton.addTarget(self, action: #selector(didTapPlayButton), for: .primaryActionTriggered)
+        soundButton.addTarget(self, action: #selector(didTapSoundButton), for: .primaryActionTriggered)
     }
 
     func set(_ model: SampleViewCellModel) {
         titleLabel.text = model.sampleName
+        soundButton.setImage(model.isSoundOn ? .soundOn : .soundOff, for: .normal)
+        playButton.setImage(model.isPlaying ? .pause : .play, for: .normal)
+        backgroundContentView.backgroundColor = model.isSelected ? .acidGreen : .white
+    }
+
+    @objc func didTapPlayButton() {
+        playButtonAction?()
+    }
+
+    @objc func didTapSoundButton() {
+        soundButtonAction?()
+    }
+
+    @objc func didTapCloseButton() {
+        closeButtonAction?()
     }
 }

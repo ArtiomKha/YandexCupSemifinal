@@ -13,11 +13,25 @@ class SoundControlViewController: UIViewController {
 
     private lazy var soundPickerController = SoundPickerViewController(samplesPlayer: samplesPlayer)
     //TODO: - Add DI
-    private let samplesConfigurator = SamplesConfigurator()
+    private let samplesConfigurator: SamplesConfigurator
     private let samplesPlayer = SamplesPlayer()
 
     var rootView: SoundControlView {
         view as! SoundControlView
+    }
+
+    var contentViewHeight: CGFloat {
+        rootView.contentView.bounds.height
+    }
+    
+    init(samplesConfigurator: SamplesConfigurator) {
+        self.samplesConfigurator = samplesConfigurator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("This class does not support NSCoder")
     }
 
     override func loadView() {
@@ -63,6 +77,18 @@ class SoundControlViewController: UIViewController {
     private func playCurrentlySelectedSample() {
         guard let filename = samplesConfigurator.currentlySelectedSample?.filename else { return }
         samplesPlayer.playFromFileInLoop(filename: filename)
+    }
+
+    func stopPlaying() {
+        samplesPlayer.stopPlayer()
+    }
+
+    func prepareForSamplesList(isPresented: Bool) {
+        rootView.hideSliders(isPresented)
+        soundPickerController.view.isUserInteractionEnabled = !isPresented
+        if isPresented {
+            samplesPlayer.stopPlayer()
+        }
     }
 }
 

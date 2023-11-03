@@ -26,7 +26,7 @@ struct ConfigurableSample {
 
     init(sample: SoundSample, id: Int, volume: Double, speed: Double) {
         self.id = id
-        self.name = sample.soundType.humanReadable + " \(id)"
+        self.name = sample.soundType.humanReadable + " \(sample.id)"
         self.volume = volume //TODO: - Update
         self.speed = speed //TODO: - Update
         self.isOn = true

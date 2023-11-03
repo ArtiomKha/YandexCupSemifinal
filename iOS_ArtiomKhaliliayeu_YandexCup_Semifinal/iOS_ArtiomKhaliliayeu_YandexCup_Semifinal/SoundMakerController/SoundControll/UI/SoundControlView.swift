@@ -30,7 +30,7 @@ class SoundControlView: UIView {
         return slider
     }()
 
-    private let contentView: UIView = {
+    let contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
@@ -109,6 +109,11 @@ class SoundControlView: UIView {
 
     func setSpeed(value: Double) {
         speedControlSlider.currentValue = value
+    }
+
+    func hideSliders(_ hide: Bool) {
+        soundSlider.isHidden = hide
+        speedControlSlider.isHidden = hide
     }
 }
 

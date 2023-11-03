@@ -94,4 +94,9 @@ class AudioPlayerView: UIView {
             ])
         }
     }
+
+    func updateLayersButton(isExpanded: Bool) {
+        layersButton.backgroundColor = isExpanded ? .acidGreen : .white
+        layersButton.setImage(isExpanded ? .chevronDown : .chevronTop, for: .normal)
+    }
 }

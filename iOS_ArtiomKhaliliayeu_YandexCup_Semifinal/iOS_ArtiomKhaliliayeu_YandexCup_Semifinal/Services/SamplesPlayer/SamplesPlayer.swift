@@ -7,14 +7,19 @@
 
 import AVFoundation
 
-class SamplesPlayer {
+protocol SamplesPlayerDelegate: AnyObject {
+    func didFinishPlaying()
+}
 
+class SamplesPlayer: NSObject {
+
+    weak var delegate: SamplesPlayerDelegate?
     var player: AVAudioPlayer?
     private var playerStopper: DispatchWorkItem?
     private var speed: Double = 1.0
     private var sound: Double = 1.0
 
-    private func playSoundFrom(localFile: String, with fileType: String, for duration: Double?) {
+    private func playSoundFrom(localFile: String, with fileType: String, for duration: Double?, loop: Bool = false) {
         if player?.isPlaying ?? false {
             player?.stop()
             playerStopper?.cancel()
@@ -22,6 +27,7 @@ class SamplesPlayer {
         guard let path = Bundle.main.path(forResource: localFile, ofType: fileType) else { return }
         let url = URL(fileURLWithPath: path)
         player = try? AVAudioPlayer(contentsOf: url)
+        player?.delegate = self
         player?.enableRate = true
         player?.rate = Float(speed)
         player?.setVolume(Float(sound), fadeDuration: 0.1)
@@ -29,11 +35,12 @@ class SamplesPlayer {
         if let duration {
             playerStopper = DispatchWorkItem(block: { [weak self] in
                 self?.player?.stop()
+                self?.delegate?.didFinishPlaying()
                 print("Stopped")
             })
             guard let playerStopper else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: playerStopper)
-        } else {
+        } else if loop {
             player?.numberOfLoops = -1
         }
         
@@ -51,6 +58,7 @@ class SamplesPlayer {
 
     func stopPlayer() {
         player?.stop()
+        delegate?.didFinishPlaying()
     }
 
     func set(speed: Double) {
@@ -66,6 +74,18 @@ class SamplesPlayer {
 
     func playFromFileInLoop(filename: String) {
         if player?.isPlaying ?? false { return }
+        playSoundFrom(localFile: filename, with: "wav", for: nil, loop: true)
+    }
+
+    func playFullFromSound(filename: String, with volume: Double, and speed: Double) {
+        self.sound = volume
+        self.speed = speed
         playSoundFrom(localFile: filename, with: "wav", for: nil)
+    }
+}
+
+extension SamplesPlayer: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        delegate?.didFinishPlaying()
     }
 }

@@ -31,4 +31,8 @@ class AudioPlayerViewController: UIViewController {
     @objc private func didtapLayersButton() {
         delegate?.didTapSamplesButton()
     }
+
+    func updateLayerButtonState(isExpanded: Bool) {
+        rootView.updateLayersButton(isExpanded: isExpanded)
+    }
 }

@@ -10,7 +10,32 @@ import Foundation
 struct SampleViewCellModel {
     let id: Int
     let sampleName: String
+    let filename: String
+    let sound: Double
+    let speed: Double
     var isPlaying: Bool = false
     var isSoundOn: Bool = true
     var isSelected: Bool = false
+
+    init(id: Int, sampleName: String, filename: String, sound: Double, speed: Double, isPlaying: Bool, isSoundOn: Bool, isSelected: Bool) {
+        self.id = id
+        self.sampleName = sampleName
+        self.filename = filename
+        self.sound = sound
+        self.speed = speed
+        self.isPlaying = isPlaying
+        self.isSoundOn = isSoundOn
+        self.isSelected = isSelected
+    }
+
+    init(_ sample: ConfigurableSample, isSelected: Bool = false) {
+        self.id = sample.id
+        self.sampleName = sample.name
+        self.filename = sample.filename
+        self.sound = sample.volume
+        self.speed = sample.speed
+        self.isPlaying = false
+        self.isSoundOn = sample.isOn
+        self.isSelected = isSelected
+    }
 }

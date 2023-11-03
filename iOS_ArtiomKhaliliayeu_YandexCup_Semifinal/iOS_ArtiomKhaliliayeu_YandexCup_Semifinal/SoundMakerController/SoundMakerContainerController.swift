@@ -9,9 +9,12 @@ import UIKit
 
 class SoundMakerContainerController: UIViewController {
 
-    let soundControlController = SoundControlViewController()
+    private let samplesConfigurator: SamplesConfigurator = SamplesConfigurator()
+
+    lazy var soundControlController = SoundControlViewController(samplesConfigurator: samplesConfigurator)
     let audioPlayerController = AudioPlayerViewController()
     let samplesListController = SamplesListViewController()
+    private var samplesListHeightConstraint: NSLayoutConstraint?
 
     var samples: [ConfigurableSample] = []
 
@@ -49,21 +52,23 @@ class SoundMakerContainerController: UIViewController {
     }
 
     func presentSamplesListController() {
-        if samplesListController.parent == nil {
+        if samplesListController.parent == nil && samples.count > 0 {
             addSamplesListController()
         } else {
             dismissSamplesList()
         }
+        audioPlayerController.updateLayerButtonState(isExpanded: samplesListController.parent != nil)
+        soundControlController.prepareForSamplesList(isPresented: samplesListController.parent != nil)
     }
 
     func dismissSamplesList() {
         samplesListController.willMove(toParent: nil)
         samplesListController.view.removeFromSuperview()
-        samplesListController.view.removeConstraints(samplesListController.view.constraints)
         samplesListController.removeFromParent()
     }
 
     private func addSamplesListController() {
+        samplesListController.delegate = self
         addChild(samplesListController)
         view.addSubview(samplesListController.view)
         samplesListController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -72,12 +77,26 @@ class SoundMakerContainerController: UIViewController {
         NSLayoutConstraint.activate([
             samplesListController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             samplesListController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            samplesListController.view.bottomAnchor.constraint(equalTo: audioPlayerController.view.topAnchor, constant: 17),
-            samplesListController.view.heightAnchor.constraint(equalToConstant: samplesListController.contentHeight())
+            samplesListController.view.bottomAnchor.constraint(equalTo: audioPlayerController.view.topAnchor, constant: 17)
         ])
+        if samplesListHeightConstraint == nil {
+            samplesListHeightConstraint = samplesListController.view.heightAnchor.constraint(equalToConstant: calculateSamplesListHeight())
+            samplesListHeightConstraint?.isActive = true
+        } else {
+            samplesListHeightConstraint?.constant = calculateSamplesListHeight()
+        }
+        samplesListController.rootView.collectionView.reloadData()
     }
 
-    //private func calculateSoundControl
+    private func calculateSamplesListHeight() -> CGFloat {
+        min(samplesListController.contentHeight(), soundControlController.contentViewHeight)
+    }
+
+    private func updateSamplesListDataSource() {
+        let selectedSampleId = samplesConfigurator.currentlySelectedSample?.id
+        let samplesListDataSource: [SampleViewCellModel] = samples.map { .init($0, isSelected: $0.id == selectedSampleId )}
+        samplesListController.updateDataSource(samplesListDataSource)
+    }
 }
 
 extension SoundMakerContainerController: SoundControlViewControllerDelegate {
@@ -87,6 +106,24 @@ extension SoundMakerContainerController: SoundControlViewControllerDelegate {
         } else {
             samples.append(sample)
         }
-        dump(samples)
+        updateSamplesListDataSource()
+    }
+}
+
+extension SoundMakerContainerController: SamplesListViewControllerDelegate {
+    func didToggleSound(for sampleId: Int, value: Bool) {
+        guard let sampleIndex = samples.firstIndex(where: { $0.id == sampleId }) else { return }
+        samples[sampleIndex].isOn = value
+    }
+
+    func didRemoveSample(with id: Int) {
+        samples.removeAll(where: { $0.id == id})
+        samplesListHeightConstraint?.constant = calculateSamplesListHeight()
+        samplesListController.view.layoutSubviews()
+    }
+
+    func didSelectSample(wirh id: Int?) {
+        let sample = samples.first(where: { $0.id == id })
+        samplesConfigurator.setSample(sample)
     }
 }

@@ -17,7 +17,7 @@ class SamplesConfigurator {
     private var speed: Double = 1.0
     private var sound: Double = 1.0
 
-    func setSample(_ sample: ConfigurableSample) {
+    func setSample(_ sample: ConfigurableSample?) {
         currentlySelectedSample = sample
     }
 
