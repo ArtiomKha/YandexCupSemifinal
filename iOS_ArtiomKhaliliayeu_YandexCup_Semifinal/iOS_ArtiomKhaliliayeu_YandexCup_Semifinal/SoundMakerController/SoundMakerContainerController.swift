@@ -9,9 +9,11 @@ import UIKit
 
 class SoundMakerContainerController: UIViewController {
 
-    private let soundControlController = SoundControlViewController()
-    private let audioPlayerController = AudioPlayerViewController()
-    private let samplesListController = SamplesListViewController()
+    let soundControlController = SoundControlViewController()
+    let audioPlayerController = AudioPlayerViewController()
+    let samplesListController = SamplesListViewController()
+
+    var samples: [ConfigurableSample] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,7 @@ class SoundMakerContainerController: UIViewController {
         view.addSubview(soundControlController.view)
         soundControlController.view.translatesAutoresizingMaskIntoConstraints = false
         soundControlController.didMove(toParent: self)
-        
+        soundControlController.delegate = self
         addChild(audioPlayerController)
         view.addSubview(audioPlayerController.view)
         audioPlayerController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -78,3 +80,13 @@ class SoundMakerContainerController: UIViewController {
     //private func calculateSoundControl
 }
 
+extension SoundMakerContainerController: SoundControlViewControllerDelegate {
+    func didGenerateSample(_ sample: ConfigurableSample) {
+        if let index = samples.firstIndex(where: { $0.id == sample.id }) {
+            samples[index] = sample
+        } else {
+            samples.append(sample)
+        }
+        dump(samples)
+    }
+}

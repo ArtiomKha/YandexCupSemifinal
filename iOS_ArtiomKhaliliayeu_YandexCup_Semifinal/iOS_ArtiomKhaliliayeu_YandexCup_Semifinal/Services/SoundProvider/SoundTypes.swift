@@ -38,6 +38,14 @@ enum SoundTypes: Int, CaseIterable {
         }
     }
 
+    var samples: [SoundSample] {
+        var id = 0
+        return sampleFileNames.map {
+            id += 1
+            return SoundSample(id: id, filename: $0, soundType: self)
+        }
+    }
+
     var icon: UIImage {
         switch self {
         case .guitar:

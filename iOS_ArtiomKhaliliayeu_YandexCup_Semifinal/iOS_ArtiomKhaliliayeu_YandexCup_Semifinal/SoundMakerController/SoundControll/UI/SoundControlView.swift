@@ -102,10 +102,22 @@ class SoundControlView: UIView {
         bringSubviewToFront(speedControlSlider)
         bringSubviewToFront(soundSlider)
     }
+
+    func setSound(value: Double) {
+        soundSlider.currentValue = value
+    }
+
+    func setSpeed(value: Double) {
+        speedControlSlider.currentValue = value
+    }
 }
 
 extension SoundControlView: SliderDelegate {
-    func didFinish(slider: UIView, with value: Double) {
+    func didFinish(slider: UIView) {
+        delegate?.didFinishSlider(slider)
+    }
+
+    func valueChanged(slider: UIView, with value: Double) {
         if slider == soundSlider {
             delegate?.didUpdateSound(value)
         } else {

@@ -20,11 +20,7 @@ struct SoundProvider: SoundProviding {
     }
 
     func getSamplesFor(type: SoundTypes) -> [SoundSample] {
-        [
-            .init(id: 1, filename: "", soundType: type),
-            .init(id: 2, filename: "", soundType: type),
-            .init(id: 3, filename: "", soundType: type)
-        ]
+        type.samples
     }
 
 }

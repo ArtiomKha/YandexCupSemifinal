@@ -11,6 +11,24 @@ class VerticalSoundSlider: UIView {
 
     weak var delegate: SliderDelegate?
 
+    var currentValue: Double {
+        get {
+            let value: Double
+            if thumbView.frame.maxY == bounds.height {
+                value = 0
+            } else if thumbView.frame.minY == 0 {
+                value = 1
+            } else {
+                value = Double(1 - (((thumbView.frame.minY + thumbView.frame.maxY) / 2) / bounds.height))
+            }
+            return value
+        }
+        
+        set {
+            updateThumbPosition(for: newValue)
+        }
+    }
+
     public var contentOffset: CGFloat = 0 {
         didSet {
             layer.bounds.origin.x = contentOffset
@@ -114,8 +132,9 @@ class VerticalSoundSlider: UIView {
             }
             updateThumbnailYPosition(draggedDistance)
             self.panGesture.setTranslation(translation, in: self)
-        case .ended:
             calculateCurrentValue()
+        case .ended:
+            delegate?.didFinish(slider: self)
         default:
             break
         }
@@ -127,14 +146,12 @@ class VerticalSoundSlider: UIView {
     }
 
     private func calculateCurrentValue() {
-        let value: Double
-        if thumbView.frame.maxY == bounds.height {
-            value = 0
-        } else if thumbView.frame.minY == 0 {
-            value = 1
-        } else {
-            value = Double(1 - (((thumbView.frame.minY + thumbView.frame.maxY) / 2) / bounds.height))
-        }
-        delegate?.didFinish(slider: self, with: value)
+        delegate?.valueChanged(slider: self, with: currentValue)
+    }
+
+    private func updateThumbPosition(for value: Double) {
+        let thumbCenter = bounds.height - bounds.height * value
+        let thumbMaxY = thumbCenter + thumbView.bounds.height / 2
+        updateThumbnailYPosition(-1 * (bounds.height - thumbMaxY))
     }
 }

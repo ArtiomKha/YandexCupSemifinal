@@ -11,4 +11,5 @@ protocol SoundPickerViewDelegate: AnyObject {
     func didTapOnSound(with id: Int)
     func didLongTapOnSound(with id: Int)
     func didSelectedSample(for soundId: Int, _ sampleId: Int)
+    func didFinishSamplesPreview()
 }

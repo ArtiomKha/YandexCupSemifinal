@@ -11,6 +11,22 @@ class SpeedControlView: UIView {
 
     weak var delegate: SliderDelegate?
 
+    var minValue = 0.5
+    var maxValue = 3.0
+
+    var currentValue: Double {
+        get {
+            var value: Double = getCurrentValueUnformatted()
+            value = (maxValue - minValue) * value + minValue
+            return value
+        }
+        set {
+            var receivedValue = newValue < 0.5 ? 0.5 : (newValue > 2 ? 2 : newValue)
+            let value = (receivedValue - minValue) / (maxValue - minValue)
+            updateThumbPosition(for: value)
+        }
+    }
+
     public var contentOffset: CGFloat = 0 {
         didSet {
             layer.bounds.origin.x = contentOffset
@@ -121,8 +137,9 @@ class SpeedControlView: UIView {
             }
             updateThumbnailXPosition(draggedDistance)
             self.panGesture.setTranslation(translation, in: self)
-        case .ended:
             calculateCurrentValue()
+        case .ended:
+            delegate?.didFinish(slider: self)
         default:
             break
         }
@@ -134,6 +151,10 @@ class SpeedControlView: UIView {
     }
 
     private func calculateCurrentValue() {
+        delegate?.valueChanged(slider: self, with: currentValue)
+    }
+
+    private func getCurrentValueUnformatted() -> Double {
         let value: Double
         if thumbView.frame.minX == 0 {
             value = 0
@@ -142,6 +163,11 @@ class SpeedControlView: UIView {
         } else {
             value = Double(((thumbView.frame.maxX + thumbView.frame.minX) / 2) / bounds.width)
         }
-        delegate?.didFinish(slider: self, with: value)
+        return value
+    }
+
+    private func updateThumbPosition(for value: Double) {
+        let thumbMinX = xEndingPoint * value
+        updateThumbnailXPosition(thumbMinX)
     }
 }

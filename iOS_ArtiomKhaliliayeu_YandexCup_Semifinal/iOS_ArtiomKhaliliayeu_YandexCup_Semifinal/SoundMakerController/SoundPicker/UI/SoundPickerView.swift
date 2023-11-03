@@ -88,7 +88,6 @@ class SoundPickerView: UIView {
 
     @objc func cellPickerTapHandler(_ sender: UITapGestureRecognizer) {
         guard let senderView = sender.view as? SoundPickerCellView else { return }
-        print("TAP \(senderView.tag)")
         delegate?.didTapOnSound(with: senderView.tag)
     }
 
@@ -99,10 +98,9 @@ class SoundPickerView: UIView {
             delegate?.didLongTapOnSound(with: senderView.tag)
         case .changed:
             extendedView.receiveTouch(at: sender.location(in: extendedView))
-        case .ended:
+        case .ended, .cancelled:
             collapseMenu()
-        case .cancelled:
-            collapseMenu()
+            delegate?.didFinishSamplesPreview()
         case .failed:
             collapseMenu()
         default:

@@ -8,5 +8,6 @@
 import UIKit
 
 protocol SliderDelegate: AnyObject {
-    func didFinish(slider: UIView, with value: Double)
+    func didFinish(slider: UIView)
+    func valueChanged(slider: UIView, with value: Double)
 }
