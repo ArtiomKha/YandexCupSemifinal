@@ -13,13 +13,19 @@ class VerticalSoundSlider: UIView {
 
     var currentValue: Double {
         get {
-            let value: Double
+            var value: Double
             if thumbView.frame.maxY == bounds.height {
                 value = 0
             } else if thumbView.frame.minY == 0 {
                 value = 1
             } else {
-                value = Double(1 - (((thumbView.frame.minY + thumbView.frame.maxY) / 2) / bounds.height))
+                let thumProgress = 1 - (((thumbView.frame.minY + thumbView.frame.maxY) / 2) / bounds.height)
+                value = Double(1 - ((thumbView.frame.maxY - thumbView.bounds.height * thumProgress) / bounds.height))
+                if value < 0 {
+                    value = 0
+                } else if value > 1 {
+                    value = 1
+                }
             }
             return value
         }

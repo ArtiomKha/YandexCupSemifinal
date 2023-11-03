@@ -11,7 +11,7 @@ class SpeedControlView: UIView {
 
     weak var delegate: SliderDelegate?
 
-    var minValue = 0.5
+    var minValue = 0.3
     var maxValue = 3.0
 
     var currentValue: Double {
@@ -21,7 +21,7 @@ class SpeedControlView: UIView {
             return value
         }
         set {
-            var receivedValue = newValue < 0.5 ? 0.5 : (newValue > 2 ? 2 : newValue)
+            let receivedValue = newValue < minValue ? minValue : (newValue > maxValue ? maxValue : newValue)
             let value = (receivedValue - minValue) / (maxValue - minValue)
             updateThumbPosition(for: value)
         }
@@ -161,7 +161,8 @@ class SpeedControlView: UIView {
         } else if thumbView.frame.maxX == bounds.width {
             value = 1
         } else {
-            value = Double(((thumbView.frame.maxX + thumbView.frame.minX) / 2) / bounds.width)
+            let thumProgress = ((thumbView.frame.maxX + thumbView.frame.minX) / 2) / bounds.width
+            value = Double((thumbView.frame.minX + thumProgress * thumbView.bounds.width) / bounds.width)
         }
         return value
     }
