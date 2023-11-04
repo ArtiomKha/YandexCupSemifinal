@@ -72,15 +72,15 @@ class SamplesPlayer: NSObject {
         player?.setVolume(Float(sound), fadeDuration: 0.1)
     }
 
-    func playFromFileInLoop(filename: String) {
+    func playFromFileInLoop(filename: SampleFileType) {
         if player?.isPlaying ?? false { return }
-        playSoundFrom(localFile: filename, with: "wav", for: nil, loop: true)
+        playSoundFrom(localFile: filename.name, with: filename.fileExtension, for: nil, loop: true)
     }
 
-    func playFullFromSound(filename: String, with volume: Double, and speed: Double) {
+    func playFullFromSound(filename: SampleFileType, with volume: Double, and speed: Double) {
         self.sound = volume
         self.speed = speed
-        playSoundFrom(localFile: filename, with: "wav", for: nil)
+        playSoundFrom(localFile: filename.name, with: filename.fileExtension, for: nil)
     }
 }
 

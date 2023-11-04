@@ -28,7 +28,7 @@ class AudioBuilder {
 
     func buildAudioAndPlay(from samples: [ConfigurableSample]) {
         audioFiles = samples.compactMap({ sample in
-            guard let url = Bundle.main.url(forResource: sample.filename, withExtension: "wav"), let audioFile = try? AVAudioFile(forReading: url) else { return nil }
+            guard let url = Bundle.main.url(forResource: sample.filename.name, withExtension: sample.filename.fileExtension), let audioFile = try? AVAudioFile(forReading: url) else { return nil }
             return audioFile
         })
         audioNodes = samples.map {
@@ -85,7 +85,7 @@ class AudioBuilder {
     }
 
     private func createNodeFor(sample: ConfigurableSample) async -> AVAudioPlayerNode? {
-        guard let url = Bundle.main.url(forResource: sample.filename, withExtension: "wav") else { return nil }
+        guard let url = Bundle.main.url(forResource: sample.filename.name, withExtension: sample.filename.fileExtension) else { return nil }
         let node = AVAudioPlayerNode()
         guard let audioFile = try? AVAudioFile(forReading: url) else { return nil }
         await node.scheduleFile(audioFile, at: nil)

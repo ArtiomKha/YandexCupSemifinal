@@ -10,14 +10,14 @@ import Foundation
 struct SampleViewCellModel {
     let id: Int
     let sampleName: String
-    let filename: String
+    let filename: SampleFileType
     let sound: Double
     let speed: Double
     var isPlaying: Bool = false
     var isSoundOn: Bool = true
     var isSelected: Bool = false
 
-    init(id: Int, sampleName: String, filename: String, sound: Double, speed: Double, isPlaying: Bool, isSoundOn: Bool, isSelected: Bool) {
+    init(id: Int, sampleName: String, filename: SampleFileType, sound: Double, speed: Double, isPlaying: Bool, isSoundOn: Bool, isSelected: Bool) {
         self.id = id
         self.sampleName = sampleName
         self.filename = filename
