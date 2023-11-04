@@ -14,6 +14,7 @@ class SoundMakerContainerController: UIViewController {
     lazy var soundControlController = SoundControlViewController(samplesConfigurator: samplesConfigurator)
     let audioPlayerController = AudioPlayerViewController()
     let samplesListController = SamplesListViewController()
+    let audioBuilder = AudioBuilder()
     private var samplesListHeightConstraint: NSLayoutConstraint?
 
     var samples: [ConfigurableSample] = []

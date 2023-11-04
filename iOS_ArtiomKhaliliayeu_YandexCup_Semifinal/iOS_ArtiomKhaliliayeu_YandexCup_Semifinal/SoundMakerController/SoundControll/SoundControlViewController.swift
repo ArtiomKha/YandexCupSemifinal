@@ -90,6 +90,14 @@ class SoundControlViewController: UIViewController {
             samplesPlayer.stopPlayer()
         }
     }
+
+    func prepareForRecording(isRecording: Bool) {
+        rootView.isUserInteractionEnabled = !isRecording
+        soundPickerController.rootView.isUserInteractionEnabled = !isRecording
+        if isRecording {
+            samplesPlayer.stopPlayer()
+        }
+    }
 }
 
 extension SoundControlViewController: SoundControlViewDelegate {

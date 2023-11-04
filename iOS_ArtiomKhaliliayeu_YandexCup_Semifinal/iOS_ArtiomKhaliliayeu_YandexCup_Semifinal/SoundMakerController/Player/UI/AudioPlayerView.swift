@@ -32,6 +32,8 @@ class AudioPlayerView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 12)
         button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.black, for: .disabled)
+        button.setTitleColor(.black, for: .selected)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
         button.setTitle("Слои", for: .normal)
@@ -98,5 +100,31 @@ class AudioPlayerView: UIView {
     func updateLayersButton(isExpanded: Bool) {
         layersButton.backgroundColor = isExpanded ? .acidGreen : .white
         layersButton.setImage(isExpanded ? .chevronDown : .chevronTop, for: .normal)
+        recordButton.isEnabled = !isExpanded
+        micButton.isEnabled = !isExpanded
+        playButton.isEnabled = !isExpanded
+        recordButton.alpha = isExpanded ? 0.3 : 1
+        micButton.alpha = isExpanded ? 0.3 : 1
+        playButton.alpha = isExpanded ? 0.3 : 1
+    }
+
+    func updatePlayButton(isPlaying: Bool) {
+        playButton.setImage(isPlaying ? .pause : .play, for: .normal)
+        recordButton.isEnabled = !isPlaying
+        micButton.isEnabled = !isPlaying
+        layersButton.isEnabled = !isPlaying
+        recordButton.alpha = isPlaying ? 0.3 : 1
+        micButton.alpha = isPlaying ? 0.3 : 1
+        layersButton.alpha = isPlaying ? 0.3 : 1
+    }
+
+    func updateRecordButton(isRecording: Bool) {
+        recordButton.setImage(isRecording ? .activeRecord : .record, for: .normal)
+        playButton.isEnabled = !isRecording
+        micButton.isEnabled = !isRecording
+        layersButton.isEnabled = !isRecording
+        playButton.alpha = isRecording ? 0.3 : 1
+        micButton.alpha = isRecording ? 0.3 : 1
+        layersButton.alpha = isRecording ? 0.3 : 1
     }
 }

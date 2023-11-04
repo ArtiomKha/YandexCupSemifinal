@@ -26,6 +26,8 @@ class AudioPlayerViewController: UIViewController {
 
     func setupActions() {
         rootView.layersButton.addTarget(self, action: #selector(didtapLayersButton), for: .primaryActionTriggered)
+        rootView.playButton.addTarget(self, action: #selector(playAudio), for: .primaryActionTriggered)
+        rootView.recordButton.addTarget(self, action: #selector(didTapRecordButton), for: .primaryActionTriggered)
     }
 
     @objc private func didtapLayersButton() {
@@ -34,5 +36,21 @@ class AudioPlayerViewController: UIViewController {
 
     func updateLayerButtonState(isExpanded: Bool) {
         rootView.updateLayersButton(isExpanded: isExpanded)
+    }
+
+    @objc func playAudio() {
+        delegate?.didTapPlayButton()
+    }
+
+    func updatePlayButton(isPlaying: Bool) {
+        rootView.updatePlayButton(isPlaying: isPlaying)
+    }
+
+    @objc func didTapRecordButton() {
+        delegate?.didTapRecordButton()
+    }
+
+    func updateRecordButton(isRecording: Bool) {
+        rootView.updateRecordButton(isRecording: isRecording)
     }
 }

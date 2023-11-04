@@ -9,4 +9,6 @@ import Foundation
 
 protocol AudioPlayerControllerDelegate: AnyObject {
     func didTapSamplesButton()
+    func didTapPlayButton()
+    func didTapRecordButton()
 }
