@@ -31,7 +31,7 @@ class SamplesPlayer: NSObject {
     }
 
     private func playAudioFrom(url: URL, with duration: Double?, loop: Bool = false) {
-        try? recordingSession.setCategory(.playAndRecord, mode: .default)
+        try? recordingSession.setCategory(.playAndRecord, mode: .videoRecording)
         try? recordingSession.setActive(true)
         player = try? AVAudioPlayer(contentsOf: url)
         player?.delegate = self

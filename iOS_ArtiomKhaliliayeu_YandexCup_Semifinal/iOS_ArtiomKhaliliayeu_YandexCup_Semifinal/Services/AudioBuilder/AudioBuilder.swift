@@ -26,7 +26,7 @@ class AudioBuilder {
     init() {
         mixer = engine.mainMixerNode
         recordingSession = AVAudioSession.sharedInstance()
-        try? recordingSession.setCategory(.playAndRecord, mode: .default)
+        try? recordingSession.setCategory(.playAndRecord, mode: .videoRecording)
         try? recordingSession.setActive(true)
     }
 
