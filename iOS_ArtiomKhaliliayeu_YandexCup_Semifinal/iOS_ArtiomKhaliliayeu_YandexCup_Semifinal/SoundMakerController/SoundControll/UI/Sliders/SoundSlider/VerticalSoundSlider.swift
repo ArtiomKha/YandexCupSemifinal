@@ -100,7 +100,7 @@ class VerticalSoundSlider: UIView {
             thumbView.heightAnchor.constraint(equalToConstant: thumbView.getLabelWidth() + 6),
             thumbHitView.leadingAnchor.constraint(equalTo: leadingAnchor),
             thumbHitView.heightAnchor.constraint(equalToConstant: 120),
-            thumbHitView.widthAnchor.constraint(equalToConstant: 30),
+            thumbHitView.widthAnchor.constraint(equalToConstant: 44),
             thumbHitView.centerYAnchor.constraint(equalTo: thumbView.centerYAnchor)
         ])
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
@@ -160,7 +160,9 @@ class VerticalSoundSlider: UIView {
 
     private func updateThumbnailYPosition(_ y: CGFloat) {
         thumbBottomConstraint?.constant = y
-        self.setNeedsLayout()
+        UIView.animate(withDuration: 0.1) {
+            self.setNeedsLayout()
+        }
     }
 
     private func calculateCurrentValue() {

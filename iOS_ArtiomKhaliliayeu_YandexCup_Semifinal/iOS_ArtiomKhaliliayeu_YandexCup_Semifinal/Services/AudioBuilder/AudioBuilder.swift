@@ -11,14 +11,12 @@ class AudioBuilder {
     
     weak var delegate: AudioBuilderDelegate?
     let engine: AVAudioEngine = AVAudioEngine()
-    var audioFiles: [AVAudioFile] = []
-    var audioNodes: [AVAudioPlayerNode] = []
-    var mixer: AVAudioMixerNode// = AVAudioMixerNode()
-    private var cachedAudioFiles: [String : AVAudioFile] = [:]
+    var audioNodes: [AVAudioNode] = []
+    var mixer: AVAudioMixerNode
     private (set) var isPlaying = false
     private (set) var isRecording = false
     private (set) var selectedFileType: FileType = .m4a
-
+    private var recordingSession: AVAudioSession
     private var lastSoundwaveUpdate = Date.distantPast
 
 
@@ -27,8 +25,9 @@ class AudioBuilder {
     
     init() {
         mixer = engine.mainMixerNode
-//        engine.attach(mixer)
-//        engine.connect(mixer, to: engine.outputNode, format: nil)
+        recordingSession = AVAudioSession.sharedInstance()
+        try? recordingSession.setCategory(.playAndRecord, mode: .default)
+        try? recordingSession.setActive(true)
     }
 
     func buildAudioAndPlay(from samples: [ConfigurableSample]) {
@@ -37,11 +36,15 @@ class AudioBuilder {
         installTap()
         try! engine.start()
         for sample in samples {
+            let timePitch = AVAudioUnitTimePitch()
+            timePitch.rate = Float(sample.speed)
             let node = AVAudioPlayerNode()
             node.rate = Float(sample.speed)
             node.volume = Float(sample.volume)
             engine.attach(node)
-            engine.connect(node, to: mixer, format: nil)
+            engine.attach(timePitch)
+            engine.connect(timePitch, to: mixer, format: nil)
+            engine.connect(node, to: timePitch, format: nil)
             switch sample.filename {
             case .audioRecording(let url):
                 guard let audioFile = try? AVAudioFile(forReading: url) else { continue }
@@ -55,6 +58,7 @@ class AudioBuilder {
                 node.play()
             }
             audioNodes.append(node)
+            audioNodes.append(timePitch)
         }
         if !isRecording {
             isPlaying = true

@@ -18,6 +18,7 @@ class SamplesPlayer: NSObject {
     private var playerStopper: DispatchWorkItem?
     private var speed: Double = 1.0
     private var sound: Double = 1.0
+    private var recordingSession: AVAudioSession = AVAudioSession.sharedInstance()
 
     private func playSoundFrom(localFile: String, with fileType: String, for duration: Double?, loop: Bool = false) {
         if player?.isPlaying ?? false {
@@ -30,6 +31,8 @@ class SamplesPlayer: NSObject {
     }
 
     private func playAudioFrom(url: URL, with duration: Double?, loop: Bool = false) {
+        try? recordingSession.setCategory(.playAndRecord, mode: .default)
+        try? recordingSession.setActive(true)
         player = try? AVAudioPlayer(contentsOf: url)
         player?.delegate = self
         player?.enableRate = true

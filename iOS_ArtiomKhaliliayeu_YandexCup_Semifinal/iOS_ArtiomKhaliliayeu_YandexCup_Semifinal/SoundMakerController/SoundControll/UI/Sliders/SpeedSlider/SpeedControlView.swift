@@ -95,7 +95,7 @@ class SpeedControlView: UIView {
             thumbView.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
             thumbHitView.bottomAnchor.constraint(equalTo: bottomAnchor),
             thumbHitView.centerXAnchor.constraint(equalTo: thumbView.centerXAnchor),
-            thumbHitView.heightAnchor.constraint(equalToConstant: 30),
+            thumbHitView.heightAnchor.constraint(equalToConstant: 44),
             thumbHitView.widthAnchor.constraint(equalToConstant: 120)
         ])
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
@@ -159,7 +159,9 @@ class SpeedControlView: UIView {
 
     private func updateThumbnailXPosition(_ x: CGFloat) {
         thumbLeadingConstraint?.constant = x
-        self.setNeedsLayout()
+        UIView.animate(withDuration: 0.1) {
+            self.setNeedsLayout()
+        }
     }
 
     private func calculateCurrentValue() {

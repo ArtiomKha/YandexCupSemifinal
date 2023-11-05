@@ -114,6 +114,7 @@ extension SoundControlViewController: SoundControlViewDelegate {
     }
 
     func didUpdateSpeed(_ value: Double) {
+        print(value)
         samplesConfigurator.set(speed: value)
         samplesPlayer.set(speed: value)
         playCurrentlySelectedSample()
