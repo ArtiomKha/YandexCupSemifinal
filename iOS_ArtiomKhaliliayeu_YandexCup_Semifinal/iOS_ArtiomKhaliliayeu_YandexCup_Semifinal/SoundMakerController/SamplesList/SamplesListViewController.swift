@@ -101,6 +101,7 @@ extension SamplesListViewController: UICollectionViewDataSource {
 
 extension SamplesListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !dataSource[indexPath.row].filename.isAudioRecoridng else { return }
         var indiciesToReload = [indexPath]
         
         if !dataSource[indexPath.row].isSelected {

@@ -32,6 +32,7 @@
 		F89154112AF5843B0031F98F /* SamplesListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154102AF5843B0031F98F /* SamplesListViewControllerDelegate.swift */; };
 		F89154142AF597440031F98F /* AudioBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154132AF597440031F98F /* AudioBuilder.swift */; };
 		F89154162AF6B7A80031F98F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154152AF6B7A80031F98F /* UIViewController+.swift */; };
+		F89154192AF6E0B80031F98F /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154182AF6E0B80031F98F /* AudioRecorder.swift */; };
 		F8A3AA492AF006FD003AE552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA482AF006FD003AE552 /* AppDelegate.swift */; };
 		F8A3AA4B2AF006FD003AE552 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */; };
 		F8A3AA4D2AF006FD003AE552 /* SoundMakerContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4C2AF006FD003AE552 /* SoundMakerContainerController.swift */; };
@@ -87,6 +88,7 @@
 		F89154102AF5843B0031F98F /* SamplesListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplesListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F89154132AF597440031F98F /* AudioBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBuilder.swift; sourceTree = "<group>"; };
 		F89154152AF6B7A80031F98F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		F89154182AF6E0B80031F98F /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		F8A3AA452AF006FD003AE552 /* iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A3AA482AF006FD003AE552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +201,14 @@
 			path = AudioBuilder;
 			sourceTree = "<group>";
 		};
+		F89154172AF6E0990031F98F /* AudioRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				F89154182AF6E0B80031F98F /* AudioRecorder.swift */,
+			);
+			path = AudioRecorder;
+			sourceTree = "<group>";
+		};
 		F8A3AA3C2AF006FD003AE552 = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +266,7 @@
 		F8A3AA622AF0180F003AE552 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F89154172AF6E0990031F98F /* AudioRecorder */,
 				F89154122AF597370031F98F /* AudioBuilder */,
 				F87F62462AF4658C000962A1 /* SamplesConfigurator */,
 				F87F62432AF45BC9000962A1 /* SamplesPlayer */,
@@ -481,6 +492,7 @@
 				F8A3AA752AF05035003AE552 /* SoundControlView.swift in Sources */,
 				F89154162AF6B7A80031F98F /* UIViewController+.swift in Sources */,
 				F8A3AA6D2AF04F14003AE552 /* SoundControlViewController.swift in Sources */,
+				F89154192AF6E0B80031F98F /* AudioRecorder.swift in Sources */,
 				F87F624E2AF46919000962A1 /* SoundPickerViewControllerDelegate.swift in Sources */,
 				F87F62372AF42C42000962A1 /* SamplesListView.swift in Sources */,
 				F89154112AF5843B0031F98F /* SamplesListViewControllerDelegate.swift in Sources */,

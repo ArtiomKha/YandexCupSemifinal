@@ -57,7 +57,8 @@ class AudioPlayerView: UIView {
 
     let micButton: RoundedIconButton = {
         let button = RoundedIconButton()
-        button.setImage(.microphone, for: .normal)
+        button.setImage(.microphone.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = Colors.darkGray
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -125,6 +126,16 @@ class AudioPlayerView: UIView {
         layersButton.isEnabled = !isRecording
         playButton.alpha = isRecording ? 0.3 : 1
         micButton.alpha = isRecording ? 0.3 : 1
+        layersButton.alpha = isRecording ? 0.3 : 1
+    }
+
+    func updateMicButton(isRecording: Bool) {
+        micButton.tintColor = isRecording ? Colors.acidRed : Colors.darkGray
+        playButton.isEnabled = !isRecording
+        recordButton.isEnabled = !isRecording
+        layersButton.isEnabled = !isRecording
+        playButton.alpha = isRecording ? 0.3 : 1
+        recordButton.alpha = isRecording ? 0.3 : 1
         layersButton.alpha = isRecording ? 0.3 : 1
     }
 }

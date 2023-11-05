@@ -9,7 +9,7 @@ import Foundation
 
 enum SampleFileType {
     case wav(String)
-    case audioRecording(String)
+    case audioRecording(URL)
 
     var fileExtension: String {
         switch self {
@@ -22,8 +22,19 @@ enum SampleFileType {
 
     var name: String {
         switch self {
-        case .wav(let name), .audioRecording(let name):
+        case .wav(let name):
             name
+        case .audioRecording:
+            ""
+        }
+    }
+
+    var isAudioRecoridng: Bool {
+        switch self {
+        case .wav:
+            false
+        case .audioRecording:
+            true
         }
     }
 }
@@ -52,5 +63,14 @@ struct ConfigurableSample {
         self.speed = speed //TODO: - Update
         self.isOn = true
         self.filename = .wav(sample.filename)
+    }
+    
+    init(url: URL, name: String, id: Int) {
+        self.name = name
+        self.filename = .audioRecording(url)
+        self.volume = 1
+        self.speed = 1
+        self.isOn = true
+        self.id = id
     }
 }

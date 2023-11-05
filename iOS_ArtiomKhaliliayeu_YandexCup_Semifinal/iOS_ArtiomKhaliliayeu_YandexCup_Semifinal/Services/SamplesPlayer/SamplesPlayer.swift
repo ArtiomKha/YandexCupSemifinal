@@ -26,6 +26,10 @@ class SamplesPlayer: NSObject {
         }
         guard let path = Bundle.main.path(forResource: localFile, ofType: fileType) else { return }
         let url = URL(fileURLWithPath: path)
+        playAudioFrom(url: url, with: duration, loop: loop)
+    }
+
+    private func playAudioFrom(url: URL, with duration: Double?, loop: Bool = false) {
         player = try? AVAudioPlayer(contentsOf: url)
         player?.delegate = self
         player?.enableRate = true
@@ -78,9 +82,17 @@ class SamplesPlayer: NSObject {
     }
 
     func playFullFromSound(filename: SampleFileType, with volume: Double, and speed: Double) {
-        self.sound = volume
-        self.speed = speed
-        playSoundFrom(localFile: filename.name, with: filename.fileExtension, for: nil)
+        switch filename {
+        case .audioRecording(let url):
+            self.sound = 1
+            self.speed = 1
+            playAudioFrom(url: url, with: nil)
+        default:
+            self.sound = volume
+            self.speed = speed
+            playSoundFrom(localFile: filename.name, with: filename.fileExtension, for: nil)
+        }
+        
     }
 }
 

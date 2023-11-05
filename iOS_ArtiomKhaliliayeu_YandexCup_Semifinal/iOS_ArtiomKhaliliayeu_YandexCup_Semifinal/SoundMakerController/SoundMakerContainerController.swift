@@ -15,6 +15,7 @@ class SoundMakerContainerController: UIViewController {
     let audioPlayerController = AudioPlayerViewController()
     let samplesListController = SamplesListViewController()
     let audioBuilder = AudioBuilder()
+    let audioRecorder = AudioRecorder()
     private var samplesListHeightConstraint: NSLayoutConstraint?
 
     var samples: [ConfigurableSample] = []
@@ -93,7 +94,7 @@ class SoundMakerContainerController: UIViewController {
         min(samplesListController.contentHeight(), soundControlController.contentViewHeight)
     }
 
-    private func updateSamplesListDataSource() {
+    func updateSamplesListDataSource() {
         let selectedSampleId = samplesConfigurator.currentlySelectedSample?.id
         let samplesListDataSource: [SampleViewCellModel] = samples.map { .init($0, isSelected: $0.id == selectedSampleId )}
         samplesListController.updateDataSource(samplesListDataSource)
@@ -119,8 +120,12 @@ extension SoundMakerContainerController: SamplesListViewControllerDelegate {
 
     func didRemoveSample(with id: Int) {
         samples.removeAll(where: { $0.id == id})
-        samplesListHeightConstraint?.constant = calculateSamplesListHeight()
-        samplesListController.view.layoutSubviews()
+        if samples.isEmpty {
+            presentSamplesListController()
+        } else {
+            samplesListHeightConstraint?.constant = calculateSamplesListHeight()
+            samplesListController.view.layoutSubviews()
+        }
     }
 
     func didSelectSample(wirh id: Int?) {

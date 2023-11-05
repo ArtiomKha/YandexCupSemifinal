@@ -12,7 +12,7 @@ class AudioBuilder {
     let engine: AVAudioEngine = AVAudioEngine()
     var audioFiles: [AVAudioFile] = []
     var audioNodes: [AVAudioPlayerNode] = []
-    var mixer: AVAudioMixerNode = AVAudioMixerNode()
+    var mixer: AVAudioMixerNode// = AVAudioMixerNode()
     private var cachedAudioFiles: [String : AVAudioFile] = [:]
     private (set) var isPlaying = false
     private (set) var isRecording = false
@@ -22,34 +22,35 @@ class AudioBuilder {
     private var filePath: URL?
     
     init() {
-        engine.attach(mixer)
-        engine.connect(mixer, to: engine.outputNode, format: nil)
+        mixer = engine.mainMixerNode
+//        engine.attach(mixer)
+//        engine.connect(mixer, to: engine.outputNode, format: nil)
     }
 
     func buildAudioAndPlay(from samples: [ConfigurableSample]) {
-        audioFiles = samples.compactMap({ sample in
-            guard let url = Bundle.main.url(forResource: sample.filename.name, withExtension: sample.filename.fileExtension), let audioFile = try? AVAudioFile(forReading: url) else { return nil }
-            return audioFile
-        })
-        audioNodes = samples.map {
-            let node = AVAudioPlayerNode()
-            node.rate = Float($0.speed)
-            node.volume = Float($0.volume)
-            return node
-        }
-
+        let samples = samples.filter { $0.isOn }
+        guard !samples.isEmpty else { return }
         try! engine.start()
-        for i in 0...(audioFiles.count - 1) {
-            guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFiles[i].processingFormat, frameCapacity: AVAudioFrameCount(audioFiles[i].length)) else { continue }
-            try? audioFiles[i].read(into: audioFileBuffer)
-            engine.attach(audioNodes[i])
-            engine.connect(audioNodes[i], to: mixer, format: nil)
-            audioNodes[i].scheduleBuffer(audioFileBuffer, at: nil, options: .loops, completionHandler: nil)
-            audioNodes[i].play()
-            print("Added \(i)")
+        for sample in samples {
+            let node = AVAudioPlayerNode()
+            node.rate = Float(sample.speed)
+            node.volume = Float(sample.volume)
+            engine.attach(node)
+            engine.connect(node, to: mixer, format: nil)
+            switch sample.filename {
+            case .audioRecording(let url):
+                guard let audioFile = try? AVAudioFile(forReading: url) else { continue }
+                node.scheduleFile(audioFile, at: nil)
+                node.play()
+            default:
+                guard let url = Bundle.main.url(forResource: sample.filename.name, withExtension: sample.filename.fileExtension), let audioFile = try? AVAudioFile(forReading: url) else { continue }
+                guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat, frameCapacity: AVAudioFrameCount(audioFile.length)) else { continue }
+                try? audioFile.read(into: audioFileBuffer)
+                node.scheduleBuffer(audioFileBuffer, at: nil, options: .loops, completionHandler: nil)
+                node.play()
+            }
+            audioNodes.append(node)
         }
-    
-        print("Engine playing")
         if !isRecording {
             isPlaying = true
         }
