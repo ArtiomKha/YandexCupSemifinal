@@ -82,7 +82,7 @@ class SoundPickerView: UIView {
 
     private func getLongPressGestureHandler() -> UILongPressGestureRecognizer {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(cellPickerLongTapHandler(_ :)))
-        recognizer.minimumPressDuration = 0.5
+        recognizer.minimumPressDuration = 0.2
         return recognizer
     }
 
