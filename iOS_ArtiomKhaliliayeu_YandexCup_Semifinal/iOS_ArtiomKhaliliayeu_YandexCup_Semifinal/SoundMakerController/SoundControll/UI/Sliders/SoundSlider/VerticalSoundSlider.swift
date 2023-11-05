@@ -62,6 +62,13 @@ class VerticalSoundSlider: UIView {
         return view
     }()
 
+    private let thumbHitView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+
     private var thumbBottomConstraint: NSLayoutConstraint!
     private var panGesture: UIPanGestureRecognizer!
     private var yEndingPoint: CGFloat {
@@ -86,14 +93,19 @@ class VerticalSoundSlider: UIView {
         shapeLayer.lineWidth = lineWidth
         shapeLayer.masksToBounds = true
         addSubview(thumbView)
+        addSubview(thumbHitView)
         NSLayoutConstraint.activate([
             thumbView.leadingAnchor.constraint(equalTo: leadingAnchor),
             thumbView.widthAnchor.constraint(equalToConstant: 14),
-            thumbView.heightAnchor.constraint(equalToConstant: thumbView.getLabelWidth() + 6)
+            thumbView.heightAnchor.constraint(equalToConstant: thumbView.getLabelWidth() + 6),
+            thumbHitView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            thumbHitView.heightAnchor.constraint(equalToConstant: 120),
+            thumbHitView.widthAnchor.constraint(equalToConstant: 30),
+            thumbHitView.centerYAnchor.constraint(equalTo: thumbView.centerYAnchor)
         ])
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         panGesture.minimumNumberOfTouches = 0
-        thumbView.addGestureRecognizer(panGesture)
+        thumbHitView.addGestureRecognizer(panGesture)
         thumbBottomConstraint = thumbView.bottomAnchor.constraint(equalTo: bottomAnchor)
         thumbBottomConstraint?.isActive = true
     }

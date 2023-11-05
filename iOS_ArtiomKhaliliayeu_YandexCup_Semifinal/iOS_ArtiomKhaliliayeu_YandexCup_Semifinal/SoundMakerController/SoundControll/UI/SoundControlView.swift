@@ -77,11 +77,11 @@ class SoundControlView: UIView {
             speedControlSlider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
             speedControlSlider.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             speedControlSlider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            speedControlSlider.heightAnchor.constraint(equalToConstant: 14),
+            speedControlSlider.heightAnchor.constraint(equalToConstant: 40),
             soundSlider.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             soundSlider.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             soundSlider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -26),
-            soundSlider.widthAnchor.constraint(equalToConstant: 20)
+            soundSlider.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
 

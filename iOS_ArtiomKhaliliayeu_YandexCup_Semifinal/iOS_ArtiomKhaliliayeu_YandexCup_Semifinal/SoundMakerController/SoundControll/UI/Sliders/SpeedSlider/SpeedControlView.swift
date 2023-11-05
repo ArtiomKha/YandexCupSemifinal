@@ -45,6 +45,13 @@ class SpeedControlView: UIView {
         return thumb
     }()
 
+    private let thumbHitView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+
     let minLineGap: CGFloat = 2
     private let lineWidth: CGFloat = 1
     private let amountOfRepetitionsForLineGap = 9
@@ -79,16 +86,21 @@ class SpeedControlView: UIView {
         shapeLayer.lineWidth = lineWidth
         shapeLayer.masksToBounds = true
         addSubview(thumbView)
+        addSubview(thumbHitView)
         thumbLeadingConstraint = thumbView.leadingAnchor.constraint(equalTo: leadingAnchor)
         thumbLeadingConstraint?.isActive = true
         NSLayoutConstraint.activate([
             thumbView.bottomAnchor.constraint(equalTo: bottomAnchor),
             thumbView.heightAnchor.constraint(equalToConstant: 14),
-            thumbView.widthAnchor.constraint(greaterThanOrEqualToConstant: 50)
+            thumbView.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            thumbHitView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            thumbHitView.centerXAnchor.constraint(equalTo: thumbView.centerXAnchor),
+            thumbHitView.heightAnchor.constraint(equalToConstant: 30),
+            thumbHitView.widthAnchor.constraint(equalToConstant: 120)
         ])
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         panGesture.minimumNumberOfTouches = 0
-        thumbView.addGestureRecognizer(panGesture)
+        thumbHitView.addGestureRecognizer(panGesture)
     }
 
     func updateRuler() -> Void {
@@ -97,8 +109,8 @@ class SpeedControlView: UIView {
         var i = 0
         var lineGap = getMaxLineGap()
         while x <= bounds.width {
-            pth.move(to: CGPoint(x: x, y: bounds.height))
-            pth.addLine(to: CGPoint(x: x, y: 0))
+            pth.move(to: CGPoint(x: x, y: bounds.height - 14))
+            pth.addLine(to: CGPoint(x: x, y: bounds.height))
             x += lineGap + lineWidth
             i += 1
             if i == amountOfRepetitionsForLineGap && lineGap > 2 {
