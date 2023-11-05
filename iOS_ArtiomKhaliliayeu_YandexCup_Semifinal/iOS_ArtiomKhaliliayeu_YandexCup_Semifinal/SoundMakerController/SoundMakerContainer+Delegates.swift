@@ -14,6 +14,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
     }
 
     func didTapPlayButton() {
+        guard !samples.isEmpty else { return }
         if audioBuilder.isPlaying {
             audioBuilder.pause()
         } else {
@@ -25,7 +26,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
     }
 
     func didTapRecordButton() {
-        //TODO: - вроде бы лагает конец записи
+        guard !samples.isEmpty else { return }
         if audioBuilder.isRecording {
             if let url = audioBuilder.stopRecording() {
                 DispatchQueue.main.async {

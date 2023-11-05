@@ -126,7 +126,7 @@ class AudioPlayerView: UIView {
         layersButton.backgroundColor = isExpanded ? .acidGreen : .white
         layersButton.setImage(isExpanded ? .chevronDown : .chevronTop, for: .normal)
         recordButton.isEnabled = !isExpanded
-        micButton.isEnabled = !isExpanded
+        micButton.isUserInteractionEnabled = !isExpanded
         playButton.isEnabled = !isExpanded
         recordButton.alpha = isExpanded ? 0.3 : 1
         micButton.alpha = isExpanded ? 0.3 : 1
@@ -136,7 +136,7 @@ class AudioPlayerView: UIView {
     func updatePlayButton(isPlaying: Bool) {
         playButton.setImage(isPlaying ? .pause : .play, for: .normal)
         recordButton.isEnabled = !isPlaying
-        micButton.isEnabled = !isPlaying
+        micButton.isUserInteractionEnabled = !isPlaying
         layersButton.isEnabled = !isPlaying
         recordButton.alpha = isPlaying ? 0.3 : 1
         micButton.alpha = isPlaying ? 0.3 : 1
@@ -146,7 +146,7 @@ class AudioPlayerView: UIView {
     func updateRecordButton(isRecording: Bool) {
         recordButton.setImage(isRecording ? .activeRecord : .record, for: .normal)
         playButton.isEnabled = !isRecording
-        micButton.isEnabled = !isRecording
+        micButton.isUserInteractionEnabled = !isRecording
         layersButton.isEnabled = !isRecording
         playButton.alpha = isRecording ? 0.3 : 1
         micButton.alpha = isRecording ? 0.3 : 1
