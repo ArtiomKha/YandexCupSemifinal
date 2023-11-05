@@ -17,6 +17,7 @@ class SoundMakerContainerController: UIViewController {
     let audioBuilder = AudioBuilder()
     let audioRecorder = AudioRecorder()
     private var samplesListHeightConstraint: NSLayoutConstraint?
+    var shouldShowSettingsBanner = false
 
     var samples: [ConfigurableSample] = []
 

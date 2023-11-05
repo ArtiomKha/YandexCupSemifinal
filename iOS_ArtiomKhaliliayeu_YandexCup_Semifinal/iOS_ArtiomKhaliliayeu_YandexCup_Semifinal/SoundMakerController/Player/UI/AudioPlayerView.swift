@@ -63,6 +63,16 @@ class AudioPlayerView: UIView {
         return button
     }()
 
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = Colors.grayBackground
+        label.isHidden = true
+        return label
+    }()
+
     init() {
         super.init(frame: .zero)
         setup()
@@ -78,7 +88,8 @@ class AudioPlayerView: UIView {
         addSubview(buttonsStackView)
         buttonsStackView.addArrangedSubview(layersButton)
         _ = buttonsStackView.addArrangedSpacerView()
-        [micButton, recordButton, playButton].forEach { buttonsStackView.addArrangedSubview($0) }
+        [timerLabel, micButton, recordButton, playButton].forEach { buttonsStackView.addArrangedSubview($0) }
+        buttonsStackView.setCustomSpacing(10, after: timerLabel)
         setupConstraints()
     }
 
@@ -88,7 +99,8 @@ class AudioPlayerView: UIView {
             buttonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             buttonsStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 59),
-            layersButton.heightAnchor.constraint(equalToConstant: 34)
+            layersButton.heightAnchor.constraint(equalToConstant: 34),
+            timerLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40)
         ])
         [micButton, recordButton, playButton].forEach { button in
             NSLayoutConstraint.activate([
@@ -137,5 +149,13 @@ class AudioPlayerView: UIView {
         playButton.alpha = isRecording ? 0.3 : 1
         recordButton.alpha = isRecording ? 0.3 : 1
         layersButton.alpha = isRecording ? 0.3 : 1
+    }
+
+    func showTimerLabel(_ show: Bool) {
+        timerLabel.isHidden = !show
+    }
+
+    func updateTimerLabelValue(_ value: String) {
+        timerLabel.text = value
     }
 }

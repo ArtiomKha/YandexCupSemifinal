@@ -40,8 +40,13 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
 
     func didTapMicButton() {
         audioRecorder.checkAuthorisation { [weak self] isAuthorised in
-            if isAuthorised {
-                self?.performMicRecord()
+            guard let self else { return }
+            DispatchQueue.main.async {
+                if isAuthorised {
+                    self.performMicRecord()
+                } else {
+                    self.presentSettingsAlert()
+                }
             }
         }
     }

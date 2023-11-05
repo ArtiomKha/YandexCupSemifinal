@@ -10,6 +10,8 @@ import UIKit
 class AudioPlayerViewController: UIViewController {
 
     weak var delegate: AudioPlayerControllerDelegate?
+    private var micTimer: Timer?
+    private var micDuration: Int = 0
 
     var rootView: AudioPlayerView {
         view as! AudioPlayerView
@@ -61,5 +63,26 @@ class AudioPlayerViewController: UIViewController {
 
     func updateMicButton(isRecording: Bool) {
         rootView.updateMicButton(isRecording: isRecording)
+        if isRecording {
+            micTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(micTimerFired), userInfo: nil, repeats: true)
+            rootView.showTimerLabel(true)
+        } else {
+            micTimer?.invalidate()
+            micTimer = nil
+            rootView.updateTimerLabelValue("")
+            rootView.showTimerLabel(false)
+            micDuration = 0
+        }
+    }
+    
+    @objc func micTimerFired() {
+        micDuration += 1
+        let minuntesAndSeconds = secondsToMinutesSeconds(micDuration)
+        let secondsText = minuntesAndSeconds.1 > 9 ? "\(minuntesAndSeconds.1)" : "0\(minuntesAndSeconds.1)"
+        rootView.updateTimerLabelValue("\(minuntesAndSeconds.0) : \(secondsText)")
+    }
+
+    private func secondsToMinutesSeconds(_ seconds: Int) -> (Int, Int) {
+        return ((seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 }
