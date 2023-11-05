@@ -9,6 +9,7 @@ import AVFoundation
 
 class AudioBuilder {
     
+    weak var delegate: AudioBuilderDelegate?
     let engine: AVAudioEngine = AVAudioEngine()
     var audioFiles: [AVAudioFile] = []
     var audioNodes: [AVAudioPlayerNode] = []
@@ -16,6 +17,8 @@ class AudioBuilder {
     private var cachedAudioFiles: [String : AVAudioFile] = [:]
     private (set) var isPlaying = false
     private (set) var isRecording = false
+
+    private var lastSoundwaveUpdate = Date.distantPast
 
 
     //MARK: - Recoding
@@ -30,6 +33,7 @@ class AudioBuilder {
     func buildAudioAndPlay(from samples: [ConfigurableSample]) {
         let samples = samples.filter { $0.isOn }
         guard !samples.isEmpty else { return }
+        installTap()
         try! engine.start()
         for sample in samples {
             let node = AVAudioPlayerNode()
@@ -59,23 +63,35 @@ class AudioBuilder {
     func pause() {
         engine.pause()
         isPlaying = false
+        self.mixer.removeTap(onBus: 0)
         for node in audioNodes {
             engine.detach(node)
         }
     }
 
     func buildAudioAndRecord(from samples: [ConfigurableSample]) {
+        isRecording = true
+        buildAudioAndPlay(from: samples)
+    }
+
+    private func installTap() {
         let tapNode = mixer
         let format = tapNode.outputFormat(forBus: 0)
         let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         filePath = documentURL.appendingPathComponent("recording.caf")
         guard let file = try? AVAudioFile(forWriting: filePath!, settings: format.settings) else { return }
-        tapNode.installTap(onBus: 0, bufferSize: 4096, format: format, block: {
-          (buffer, time) in
-          try? file.write(from: buffer)
+        tapNode.installTap(onBus: 0, bufferSize: 4096, format: format, block: { [weak self] (buffer, time) in
+            if self?.isRecording ?? false {
+                try? file.write(from: buffer)
+            }
+            self?.processBuffer(buffer)
         })
-        isRecording = true
-        buildAudioAndPlay(from: samples)
+    }
+
+    private func processBuffer(_ buffer: AVAudioPCMBuffer) {
+        guard let value = SoundWaveProcessor().process(buffer: buffer), lastSoundwaveUpdate.distance(to: Date()) > 0.2 else { return }
+        lastSoundwaveUpdate = Date()
+        delegate?.didReceiveBuffer(size: value)
     }
 
     func stopRecording() -> URL? {

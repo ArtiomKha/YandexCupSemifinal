@@ -85,4 +85,12 @@ class AudioPlayerViewController: UIViewController {
     private func secondsToMinutesSeconds(_ seconds: Int) -> (Int, Int) {
         return ((seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+
+    func populateSoundwave(_ frame: CGFloat) {
+        rootView.populateSoundwave(frame)
+    }
+
+    func resetSoundwave() {
+        rootView.resetSoundwave()
+    }
 }

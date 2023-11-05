@@ -33,6 +33,9 @@
 		F89154142AF597440031F98F /* AudioBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154132AF597440031F98F /* AudioBuilder.swift */; };
 		F89154162AF6B7A80031F98F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154152AF6B7A80031F98F /* UIViewController+.swift */; };
 		F89154192AF6E0B80031F98F /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154182AF6E0B80031F98F /* AudioRecorder.swift */; };
+		F891541E2AF7BD6C0031F98F /* AudioBuilderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */; };
+		F89154202AF7BDE50031F98F /* SoundWaveProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */; };
+		F89154222AF7C8BC0031F98F /* SoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154212AF7C8BC0031F98F /* SoundwaveView.swift */; };
 		F8A3AA492AF006FD003AE552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA482AF006FD003AE552 /* AppDelegate.swift */; };
 		F8A3AA4B2AF006FD003AE552 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */; };
 		F8A3AA4D2AF006FD003AE552 /* SoundMakerContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4C2AF006FD003AE552 /* SoundMakerContainerController.swift */; };
@@ -89,6 +92,9 @@
 		F89154132AF597440031F98F /* AudioBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBuilder.swift; sourceTree = "<group>"; };
 		F89154152AF6B7A80031F98F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		F89154182AF6E0B80031F98F /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBuilderDelegate.swift; sourceTree = "<group>"; };
+		F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWaveProcessor.swift; sourceTree = "<group>"; };
+		F89154212AF7C8BC0031F98F /* SoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundwaveView.swift; sourceTree = "<group>"; };
 		F8A3AA452AF006FD003AE552 /* iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A3AA482AF006FD003AE552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -197,6 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				F89154132AF597440031F98F /* AudioBuilder.swift */,
+				F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */,
+				F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */,
 			);
 			path = AudioBuilder;
 			sourceTree = "<group>";
@@ -328,6 +336,7 @@
 			children = (
 				F8A3AA712AF04F42003AE552 /* AudioPlayerView.swift */,
 				F8A3AA882AF28A8C003AE552 /* RoundedIconButton.swift */,
+				F89154212AF7C8BC0031F98F /* SoundwaveView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -493,6 +502,7 @@
 				F89154162AF6B7A80031F98F /* UIViewController+.swift in Sources */,
 				F8A3AA6D2AF04F14003AE552 /* SoundControlViewController.swift in Sources */,
 				F89154192AF6E0B80031F98F /* AudioRecorder.swift in Sources */,
+				F89154222AF7C8BC0031F98F /* SoundwaveView.swift in Sources */,
 				F87F624E2AF46919000962A1 /* SoundPickerViewControllerDelegate.swift in Sources */,
 				F87F62372AF42C42000962A1 /* SamplesListView.swift in Sources */,
 				F89154112AF5843B0031F98F /* SamplesListViewControllerDelegate.swift in Sources */,
@@ -513,12 +523,14 @@
 				F87F62452AF45BE0000962A1 /* SamplesPlayer.swift in Sources */,
 				F87F62422AF45A9C000962A1 /* UIView+.swift in Sources */,
 				F8A3AA892AF28A8C003AE552 /* RoundedIconButton.swift in Sources */,
+				F891541E2AF7BD6C0031F98F /* AudioBuilderDelegate.swift in Sources */,
 				F87F623E2AF440E6000962A1 /* AudioPlayerControllerDelegate.swift in Sources */,
 				F8A3AA8B2AF2A409003AE552 /* SpeedControlView.swift in Sources */,
 				F89154142AF597440031F98F /* AudioBuilder.swift in Sources */,
 				F8A3AA7D2AF196DD003AE552 /* SoundSample.swift in Sources */,
 				F8A3AA7F2AF19831003AE552 /* SoundPickerExpandableView.swift in Sources */,
 				F87F624C2AF4683C000962A1 /* ConfigurableSamplesIDGenerator.swift in Sources */,
+				F89154202AF7BDE50031F98F /* SoundWaveProcessor.swift in Sources */,
 				F87F624A2AF465B0000962A1 /* ConfigurableSample.swift in Sources */,
 				F8A3AA952AF311A7003AE552 /* SoundSliderThumb.swift in Sources */,
 				F8A3AA9A2AF31420003AE552 /* SoundControlViewDelegate.swift in Sources */,

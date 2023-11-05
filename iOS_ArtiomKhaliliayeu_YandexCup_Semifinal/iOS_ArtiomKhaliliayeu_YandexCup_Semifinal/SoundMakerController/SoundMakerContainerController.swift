@@ -24,6 +24,7 @@ class SoundMakerContainerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupChildren()
+        audioBuilder.delegate = self
     }
 
     private func setupChildren() {

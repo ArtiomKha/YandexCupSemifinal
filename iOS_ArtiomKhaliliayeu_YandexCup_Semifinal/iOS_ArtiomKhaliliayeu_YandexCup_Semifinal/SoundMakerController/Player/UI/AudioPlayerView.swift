@@ -73,6 +73,12 @@ class AudioPlayerView: UIView {
         return label
     }()
 
+    private let soundWaveView: SoundwaveView = {
+        let view = SoundwaveView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     init() {
         super.init(frame: .zero)
         setup()
@@ -86,6 +92,7 @@ class AudioPlayerView: UIView {
     private func setup() {
         backgroundColor = .black
         addSubview(buttonsStackView)
+        addSubview(soundWaveView)
         buttonsStackView.addArrangedSubview(layersButton)
         _ = buttonsStackView.addArrangedSpacerView()
         [timerLabel, micButton, recordButton, playButton].forEach { buttonsStackView.addArrangedSubview($0) }
@@ -95,6 +102,11 @@ class AudioPlayerView: UIView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            soundWaveView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            soundWaveView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            soundWaveView.topAnchor.constraint(equalTo: topAnchor, constant: 13),
+            soundWaveView.heightAnchor.constraint(equalToConstant: 35),
+            
             buttonsStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             buttonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             buttonsStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
@@ -157,5 +169,13 @@ class AudioPlayerView: UIView {
 
     func updateTimerLabelValue(_ value: String) {
         timerLabel.text = value
+    }
+
+    func populateSoundwave(_ frame: CGFloat) {
+        soundWaveView.addNewFrame(frame)
+    }
+
+    func resetSoundwave() {
+        soundWaveView.clear()
     }
 }

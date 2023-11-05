@@ -17,6 +17,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
         if audioBuilder.isPlaying {
             audioBuilder.pause()
         } else {
+            audioPlayerController.resetSoundwave()
             audioBuilder.buildAudioAndPlay(from: samples)
         }
         audioPlayerController.updatePlayButton(isPlaying: audioBuilder.isPlaying)
@@ -32,6 +33,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
                 }
             }
         } else {
+            audioPlayerController.resetSoundwave()
             audioBuilder.buildAudioAndRecord(from: samples)
         }
         audioPlayerController.updateRecordButton(isRecording: audioBuilder.isRecording)
@@ -68,4 +70,14 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
         samples.append(.init(url: url, name: "Запись \(audioNumber)", id: ConfigurableSamplesIDGenerator.generateNewId()))
         updateSamplesListDataSource()
     }
+}
+
+extension SoundMakerContainerController: AudioBuilderDelegate {
+
+    func didReceiveBuffer(size: CGFloat) {
+        DispatchQueue.main.async {
+            self.audioPlayerController.populateSoundwave(size)
+        }
+    }
+
 }
