@@ -14,7 +14,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
     }
 
     func didTapPlayButton() {
-        guard !samples.isEmpty else { return }
+        guard !samples.filter({ $0.isOn }).isEmpty else { return }
         if audioBuilder.isPlaying {
             audioBuilder.pause()
         } else {
@@ -26,7 +26,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
     }
 
     func didTapRecordButton() {
-        guard !samples.isEmpty else { return }
+        guard !samples.filter({ $0.isOn }).isEmpty else { return }
         if audioBuilder.isRecording {
             if let url = audioBuilder.stopRecording() {
                 shareFile(url)
