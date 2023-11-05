@@ -94,10 +94,32 @@ class SampleCellView: UICollectionViewCell {
     }
 
     func set(_ model: SampleViewCellModel) {
-        titleLabel.text = model.sampleName
+        titleLabel.attributedText = generateTitle(model)
         soundButton.setImage(model.isSoundOn ? .soundOn : .soundOff, for: .normal)
         playButton.setImage(model.isPlaying ? .pause : .play, for: .normal)
         backgroundContentView.backgroundColor = model.isSelected ? .acidGreen : .white
+    }
+
+    private func generateTitle(_ model: SampleViewCellModel) -> NSAttributedString {
+        var result = NSMutableAttributedString()
+        let soundAttachment = NSTextAttachment()
+        soundAttachment.image = .sound
+        let imageOffsetY: CGFloat = -4
+        soundAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 15, height: 15)
+        let soundAttachmentString = NSAttributedString(attachment: soundAttachment)
+        
+        let rateAttachment = NSTextAttachment()
+        rateAttachment.image = .playbackRate
+        rateAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 15, height: 15)
+        let rateAttachmentString = NSAttributedString(attachment: rateAttachment)
+        
+        result.append(NSAttributedString(string: model.sampleName + "   "))
+        result.append(soundAttachmentString)
+        result.append(NSAttributedString(string: " \(Int(model.sound * 100))% "))
+        result.append(rateAttachmentString)
+        result.append(NSAttributedString(string: " x\(String(format: "%.1f", model.speed))"))
+        
+        return result
     }
 
     @objc func didTapPlayButton() {
