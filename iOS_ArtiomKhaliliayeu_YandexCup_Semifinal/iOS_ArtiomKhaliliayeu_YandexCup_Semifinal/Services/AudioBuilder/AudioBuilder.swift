@@ -17,6 +17,7 @@ class AudioBuilder {
     private var cachedAudioFiles: [String : AVAudioFile] = [:]
     private (set) var isPlaying = false
     private (set) var isRecording = false
+    private (set) var selectedFileType: FileType = .m4a
 
     private var lastSoundwaveUpdate = Date.distantPast
 
@@ -61,12 +62,16 @@ class AudioBuilder {
     }
 
     func pause() {
+        mixer.removeTap(onBus: 0)
         engine.pause()
         isPlaying = false
-        self.mixer.removeTap(onBus: 0)
         for node in audioNodes {
             engine.detach(node)
         }
+    }
+
+    func setFileType(_ type: FileType) {
+        selectedFileType = type
     }
 
     func buildAudioAndRecord(from samples: [ConfigurableSample]) {
@@ -78,7 +83,7 @@ class AudioBuilder {
         let tapNode = mixer
         let format = tapNode.outputFormat(forBus: 0)
         let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        filePath = documentURL.appendingPathComponent("recording.caf")
+        filePath = documentURL.appendingPathComponent("recording.\(selectedFileType.humanReadable)")
         guard let file = try? AVAudioFile(forWriting: filePath!, settings: format.settings) else { return }
         tapNode.installTap(onBus: 0, bufferSize: 4096, format: format, block: { [weak self] (buffer, time) in
             if self?.isRecording ?? false {
@@ -97,7 +102,6 @@ class AudioBuilder {
     func stopRecording() -> URL? {
         isRecording = false
         pause()
-        self.mixer.removeTap(onBus: 0)
         return filePath
     }
 

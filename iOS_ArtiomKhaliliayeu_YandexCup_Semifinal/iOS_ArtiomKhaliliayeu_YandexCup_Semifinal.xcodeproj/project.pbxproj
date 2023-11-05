@@ -36,6 +36,8 @@
 		F891541E2AF7BD6C0031F98F /* AudioBuilderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */; };
 		F89154202AF7BDE50031F98F /* SoundWaveProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */; };
 		F89154222AF7C8BC0031F98F /* SoundwaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154212AF7C8BC0031F98F /* SoundwaveView.swift */; };
+		F89154242AF809870031F98F /* FIleTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154232AF809870031F98F /* FIleTypePickerView.swift */; };
+		F89154262AF809D90031F98F /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89154252AF809D90031F98F /* FileType.swift */; };
 		F8A3AA492AF006FD003AE552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA482AF006FD003AE552 /* AppDelegate.swift */; };
 		F8A3AA4B2AF006FD003AE552 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */; };
 		F8A3AA4D2AF006FD003AE552 /* SoundMakerContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3AA4C2AF006FD003AE552 /* SoundMakerContainerController.swift */; };
@@ -95,6 +97,8 @@
 		F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBuilderDelegate.swift; sourceTree = "<group>"; };
 		F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundWaveProcessor.swift; sourceTree = "<group>"; };
 		F89154212AF7C8BC0031F98F /* SoundwaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundwaveView.swift; sourceTree = "<group>"; };
+		F89154232AF809870031F98F /* FIleTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIleTypePickerView.swift; sourceTree = "<group>"; };
+		F89154252AF809D90031F98F /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
 		F8A3AA452AF006FD003AE552 /* iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_ArtiomKhaliliayeu_YandexCup_Semifinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A3AA482AF006FD003AE552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A3AA4A2AF006FD003AE552 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				F89154132AF597440031F98F /* AudioBuilder.swift */,
 				F891541D2AF7BD6C0031F98F /* AudioBuilderDelegate.swift */,
 				F891541F2AF7BDE50031F98F /* SoundWaveProcessor.swift */,
+				F89154252AF809D90031F98F /* FileType.swift */,
 			);
 			path = AudioBuilder;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 				F8A3AA712AF04F42003AE552 /* AudioPlayerView.swift */,
 				F8A3AA882AF28A8C003AE552 /* RoundedIconButton.swift */,
 				F89154212AF7C8BC0031F98F /* SoundwaveView.swift */,
+				F89154232AF809870031F98F /* FIleTypePickerView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -536,7 +542,9 @@
 				F8A3AA9A2AF31420003AE552 /* SoundControlViewDelegate.swift in Sources */,
 				F8A3AA612AF016C0003AE552 /* SoundPickerView.swift in Sources */,
 				F8A3AA872AF1B12D003AE552 /* StackView+.swift in Sources */,
+				F89154262AF809D90031F98F /* FileType.swift in Sources */,
 				F8A3AA7B2AF19142003AE552 /* SoundPickerViewDelegate.swift in Sources */,
+				F89154242AF809870031F98F /* FIleTypePickerView.swift in Sources */,
 				F87F62342AF42C36000962A1 /* SamplesListViewController.swift in Sources */,
 				F8A3AA792AF15626003AE552 /* SoundPickerCellView.swift in Sources */,
 				F8A3AA8D2AF2D59B003AE552 /* VerticalSoundSlider.swift in Sources */,

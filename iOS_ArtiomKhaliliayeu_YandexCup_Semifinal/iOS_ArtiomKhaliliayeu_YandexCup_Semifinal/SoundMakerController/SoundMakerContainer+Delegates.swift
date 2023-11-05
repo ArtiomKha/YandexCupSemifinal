@@ -29,9 +29,7 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
         guard !samples.isEmpty else { return }
         if audioBuilder.isRecording {
             if let url = audioBuilder.stopRecording() {
-                DispatchQueue.main.async {
-                    self.shareFile(url)
-                }
+                shareFile(url)
             }
         } else {
             audioPlayerController.resetSoundwave()
@@ -70,6 +68,10 @@ extension SoundMakerContainerController: AudioPlayerControllerDelegate {
         let audioNumber = samples.filter { $0.filename.isAudioRecoridng }.count + 1
         samples.append(.init(url: url, name: "Запись \(audioNumber)", id: ConfigurableSamplesIDGenerator.generateNewId()))
         updateSamplesListDataSource()
+    }
+
+    func didSelectFileType(_ type: FileType) {
+        audioBuilder.setFileType(type)
     }
 }
 

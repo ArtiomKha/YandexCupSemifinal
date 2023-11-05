@@ -25,6 +25,8 @@ class SoundMakerContainerController: UIViewController {
         super.viewDidLoad()
         setupChildren()
         audioBuilder.delegate = self
+        audioPlayerController.setFileType(.m4a)
+        audioBuilder.setFileType(.m4a)
     }
 
     private func setupChildren() {

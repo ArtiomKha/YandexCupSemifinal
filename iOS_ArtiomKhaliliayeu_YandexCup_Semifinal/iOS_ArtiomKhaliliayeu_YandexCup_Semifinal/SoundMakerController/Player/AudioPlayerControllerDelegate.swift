@@ -12,4 +12,5 @@ protocol AudioPlayerControllerDelegate: AnyObject {
     func didTapPlayButton()
     func didTapRecordButton()
     func didTapMicButton()
+    func didSelectFileType(_ type: FileType)
 }

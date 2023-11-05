@@ -24,6 +24,7 @@ class AudioPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
+        rootView.fileTypePickerView.delegate = self
     }
 
     func setupActions() {
@@ -99,5 +100,16 @@ class AudioPlayerViewController: UIViewController {
 
     func resetSoundwave() {
         rootView.resetSoundwave()
+    }
+
+    func setFileType(_ type: FileType) {
+        rootView.setFileType(type)
+    }
+}
+
+extension AudioPlayerViewController: FileTypePickerDelegate {
+    func didSelect(_ type: FileType) {
+        rootView.setFileType(type)
+        delegate?.didSelectFileType(type)
     }
 }
