@@ -29,7 +29,7 @@ class SoundPickerView: UIView {
     private var menuViewTopConstraint: NSLayoutConstraint?
     private var menuViewLeadingContraint: NSLayoutConstraint?
 
-    private let extendedView: SoundPickerExpandableView = {
+    let extendedView: SoundPickerExpandableView = {
         let view = SoundPickerExpandableView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true

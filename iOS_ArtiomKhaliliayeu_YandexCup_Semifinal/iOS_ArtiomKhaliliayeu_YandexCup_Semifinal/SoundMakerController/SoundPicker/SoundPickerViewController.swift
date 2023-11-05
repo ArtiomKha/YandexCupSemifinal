@@ -60,7 +60,10 @@ class SoundPickerViewController: UIViewController {
         lastSelectedSample = sample
         samplesPlayer.previewSample(sample)
     }
-    
+
+    func updateMenuPosition() {
+        view.bringSubviewToFront(rootView.extendedView)
+    }
 }
 
 extension SoundPickerViewController: SoundPickerViewDelegate {

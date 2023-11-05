@@ -27,6 +27,11 @@ class SamplesListViewController: UIViewController {
         samplesPlayer.delegate = self
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        samplesPlayer.stopPlayer()
+    }
+
     func setupCollectionView() {
         rootView.collectionView.delegate = self
         rootView.collectionView.dataSource = self
@@ -44,7 +49,7 @@ class SamplesListViewController: UIViewController {
     //MARK: - Cell actions
     private func deleteSample(at index: Int) {
         if dataSource[index].isPlaying {
-            samplesPlayer.stopPlayer()
+            samplesPlayer.stopPlayer(notify: false)
         }
         if dataSource[index].isSelected {
             delegate?.didSelectSample(wirh: nil)

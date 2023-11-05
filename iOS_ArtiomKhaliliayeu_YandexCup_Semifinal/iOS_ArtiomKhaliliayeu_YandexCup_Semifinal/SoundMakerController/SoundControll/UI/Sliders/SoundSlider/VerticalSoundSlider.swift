@@ -156,8 +156,6 @@ class VerticalSoundSlider: UIView {
     }
 
     private func updateThumbPosition(for value: Double) {
-        let thumbCenter = bounds.height - bounds.height * value
-        let thumbMaxY = thumbCenter + thumbView.bounds.height / 2
-        updateThumbnailYPosition(-1 * (bounds.height - thumbMaxY))
+        updateThumbnailYPosition(-1 * (bounds.height - thumbView.bounds.height) * value)
     }
 }

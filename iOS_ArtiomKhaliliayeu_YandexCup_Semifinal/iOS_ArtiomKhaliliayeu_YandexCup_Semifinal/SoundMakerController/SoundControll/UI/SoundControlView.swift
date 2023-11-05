@@ -83,19 +83,11 @@ class SoundControlView: UIView {
             soundSlider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -26),
             soundSlider.widthAnchor.constraint(equalToConstant: 20)
         ])
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
     }
 
     func applyGradient() {
         contentViewGradinet.frame = contentView.bounds
-        print(contentView.frame)
         contentView.layer.insertSublayer(contentViewGradinet, at: 0)
-    }
-    
-    @objc private func tap() {
-        print("TAP")
-        print(speedControlSlider.frame)
-        print(frame, bounds)
     }
 
     func updateSliderPositions() {

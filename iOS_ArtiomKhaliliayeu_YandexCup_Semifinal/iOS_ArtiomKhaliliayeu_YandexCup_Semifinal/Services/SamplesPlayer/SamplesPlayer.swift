@@ -60,9 +60,11 @@ class SamplesPlayer: NSObject {
         playSoundFrom(localFile: filename, with: "wav", for: 5)
     }
 
-    func stopPlayer() {
+    func stopPlayer(notify: Bool = true) {
         player?.stop()
-        delegate?.didFinishPlaying()
+        if notify {
+            delegate?.didFinishPlaying()
+        }
     }
 
     func set(speed: Double) {

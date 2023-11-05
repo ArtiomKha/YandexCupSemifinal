@@ -98,19 +98,22 @@ class SoundControlViewController: UIViewController {
             samplesPlayer.stopPlayer()
         }
     }
+
+    func updateThumbs(for sample: ConfigurableSample) {
+        rootView.setSpeed(value: sample.speed)
+        rootView.setSound(value: sample.volume)
+    }
 }
 
 extension SoundControlViewController: SoundControlViewDelegate {
 
     func didUpdateSound(_ value: Double) {
-        print(value)
         samplesConfigurator.set(sound: value)
         samplesPlayer.set(sound: value)
         playCurrentlySelectedSample()
     }
 
     func didUpdateSpeed(_ value: Double) {
-        print(value)
         samplesConfigurator.set(speed: value)
         samplesPlayer.set(speed: value)
         playCurrentlySelectedSample()
@@ -126,7 +129,6 @@ extension SoundControlViewController: SoundControlViewDelegate {
 extension SoundControlViewController: SoundPickerViewControllerDelegate {
     func didSelect(sample: SoundSample) {
         let configurableSample = samplesConfigurator.createSample(sample)
-        print("Selected sample \(configurableSample.name)")
         delegate?.didGenerateSample(configurableSample)
     }
 }

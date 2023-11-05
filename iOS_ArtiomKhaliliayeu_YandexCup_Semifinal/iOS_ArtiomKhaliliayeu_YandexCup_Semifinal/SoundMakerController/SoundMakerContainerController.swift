@@ -131,5 +131,7 @@ extension SoundMakerContainerController: SamplesListViewControllerDelegate {
     func didSelectSample(wirh id: Int?) {
         let sample = samples.first(where: { $0.id == id })
         samplesConfigurator.setSample(sample)
+        guard let sample = sample else { return }
+        soundControlController.updateThumbs(for: sample)
     }
 }
