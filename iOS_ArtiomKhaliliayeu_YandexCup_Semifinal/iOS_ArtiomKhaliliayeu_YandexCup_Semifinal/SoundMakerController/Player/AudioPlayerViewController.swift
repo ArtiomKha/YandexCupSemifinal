@@ -47,6 +47,7 @@ class AudioPlayerViewController: UIViewController {
 
     func updatePlayButton(isPlaying: Bool) {
         rootView.updatePlayButton(isPlaying: isPlaying)
+        startTimer(isPlaying)
     }
 
     @objc func didTapRecordButton() {
@@ -55,6 +56,7 @@ class AudioPlayerViewController: UIViewController {
 
     func updateRecordButton(isRecording: Bool) {
         rootView.updateRecordButton(isRecording: isRecording)
+        startTimer(isRecording)
     }
 
     @objc private func didTapMicButton() {
@@ -63,7 +65,12 @@ class AudioPlayerViewController: UIViewController {
 
     func updateMicButton(isRecording: Bool) {
         rootView.updateMicButton(isRecording: isRecording)
-        if isRecording {
+        startTimer(isRecording)
+    }
+
+    func startTimer(_ start: Bool = true) {
+        if start {
+            micDuration = 0
             micTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(micTimerFired), userInfo: nil, repeats: true)
             rootView.showTimerLabel(true)
         } else {
